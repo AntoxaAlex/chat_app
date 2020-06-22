@@ -1,0 +1,38 @@
+<%- include("./partials/Auth-Room-New-Edit/header")%>
+
+<div class="container">
+<a href="/new-room">Create New Room</a>
+
+<% rooms.forEach(function(room){ %>
+
+    <div class="card" style="width: 18rem;">
+<!--        <img src="..." class="card-img-top" alt="...">-->
+        <div class="card-body">
+            <h5 class="card-title"><%=room.title%></h5>
+            <p class="card-text"><%=room.description%></p>
+            <a href="/rooms/<%=room._id%>" class="btn btn-primary">See chat</a>
+            <% if(currentUser&&room.author.id.equals(currentUser._id)){ %>
+                <div class="edit-delete-container">
+                    <a href="/rooms/<%=room._id%>/edit-room" class="btn btn-outline-warning btn-sm">Edit chat</a>
+                    <form class="deleteForm" action="/rooms/<%=room._id%>/delete-room?_method=DELETE" method="POST" >
+                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            <%}%>
+        </div>
+    </div>
+<!--<div>-->
+<!--    <p><%=room.title%></p>-->
+<!--    <p><%=room.description%></p>-->
+<!--    <a href="/rooms/<%=room._id%>">See chat</a>-->
+<!--    <% if(currentUser&&room.author.id.equals(currentUser._id)){ %>-->
+<!--    <a href="/rooms/<%=room._id%>/edit-room">Edit chat</a>-->
+<!--    <form action="/rooms/<%=room._id%>/delete-room?_method=DELETE" method="POST" >-->
+<!--        <button>Delete</button>-->
+<!--    </form>-->
+<!--    <%}%>-->
+<!--</div>-->
+
+<% }) %>
+</div>
+<%- include("./partials/Auth-Room-New-Edit/footer")%>

@@ -1,0 +1,17 @@
+<%- include("./partials/Auth-Room-New-Edit/header")%>
+
+<div class="container-fluid">
+    <div class="newroom-container text-center">
+        <h1>Create New Room</h1>
+        <form action="/new-room" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control" name="room[title]" placeholder="title">
+                <input type="text" class="form-control" name="room[description]" placeholder="description">
+                <button class="btn btn-outline-light btn-lg">CREATE</button>
+            </div>
+        </form>
+        <a href="/rooms">Back</a>
+    </div>
+</div>
+
+<%- include("./partials/Auth-Room-New-Edit/footer")%>

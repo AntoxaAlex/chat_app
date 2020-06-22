@@ -1,0 +1,15 @@
+<%- include("./partials/Auth/header")%>
+
+<div class="container-fluid">
+    <div class="register-container text-center">
+        <form action="/register" method="POST">
+            <div class="form-group">
+                <input type="text" class="form-control" name="username" placeholder="username">
+                <input type="password" class="form-control" name="password" placeholder="password">
+                <button class="btn btn-outline-light btn-lg">SIGH UP</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include("./partials/Auth/footer")%>
