@@ -8,18 +8,25 @@
 </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-           </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a id="userName" class="nav-item nav-link active" href="#"><%=currentUser.username%><span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="/logout">Logout</a>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+                <div class="row col-12">
+                    <div class="col-6 col-md-6">
+                        <a class="navbar-brand" href="/rooms">CYBERCHAT</a>
+                    </div>
+                    <div class="navbar-nav col-6 justify-content-end">
+                        <img class="avatar" src="<%=profile.avatar%>">
+                        <li class="nav-item dropdown">
+                            <a class="nav-item nav-link dropdown-toggle" href="#" id="userName" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=currentUser.username%></a>
+                            <div class="dropdown-menu dropdown-menu-right bg-transparent" aria-labelledby="userName">
+                                <a class="dropdown-item" href="/edit-profile/<%=currentUser._id%>"><i class="fas fa-cog"></i> Edit profile</a>
+                                <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </li>
+                    </div>
                 </div>
-             </div>
-        </nav>
+            </nav>
+        </div>
         <div>
             <% if(error && error.length > 0){ %>
                 <div class="alert alert-danger" role="alert">

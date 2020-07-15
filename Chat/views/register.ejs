@@ -2,12 +2,34 @@
 
 <div class="container-fluid">
     <div class="register-container text-center">
-        <form action="/register" method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="username">
-                <input type="password" class="form-control" name="password" placeholder="password">
-                <button class="btn btn-outline-light btn-lg">SIGH UP</button>
+        <form action="/register" method="POST" enctype="multipart/form-data">
+            <div class="upload-image">
+                <div class="form-group">
+                    <label for="image" class="label">
+                        <i class="far fa-file-image"></i>
+                        <span class="title">Add avatar</span>
+                        <input type="file" id="image" name="avatar" accept="image/*" required>
+                    </label>
+                </div>
             </div>
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input id="firstname" class="form-control" type="text"  name="firstname" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input id="lastname" class="form-control" type="text"  name="lastname" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" class="form-control" name="username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" class="form-control" name="password" autocomplete="off">
+            </div>
+            <button class="btn btn-outline-light btn-lg">SIGH UP</button>
+
         </form>
     </div>
 </div>

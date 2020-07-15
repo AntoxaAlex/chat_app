@@ -1,21 +1,33 @@
 /*Login template*/
+body{
+    background-image: url("../imgs/background.jpg");
+    background-size: cover;
+    font-family: Sony_Sketch;
+    font-weight: normal;
+    font-style:normal;
+    font-size: 1.2rem;
+}
 
 .login-container {
     margin: 10% auto 0 auto;
     width: 400px;
     height: 300px;
-    background-color: #6897bb;
+    background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
     padding: 10px;
 }
 
-.form-control{
-    background-color: #6897bb;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 2px solid white;
+.login-container input{
+    height: 20px;
+    background-color: transparent;
+    border-bottom: 1px solid #6DD5FA;
+    border-radius: 0;
+    color:#6DD5FA;
+    transition: 200ms border;
+    border-top-style: inherit;
+    border-right-style: inherit;
+    border-left-style: inherit;
+    font-size: 1.5rem;
 }
-
 
 .btn-outline-light{
     margin-top: 15px;
@@ -32,26 +44,101 @@
 /*Register template*/
 
 .register-container {
-    margin: 10% auto 0 auto;
+    margin: 5% auto 0 auto;
     width: 400px;
-    height: 200px;
-    background-color: #6897bb;
+    height: 620px;
+    background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
     padding: 10px;
 }
 
+.register-container input{
+    height: 20px;
+    background-color: transparent;
+    border-bottom: 1px solid #6DD5FA;
+    border-radius: 0;
+    color:#6DD5FA;
+    transition: 200ms border;
+    border-top-style: inherit;
+    border-right-style: inherit;
+    border-left-style: inherit;
+    font-size: 1.5rem;
+}
+.register-container input:focus, .login-container input:focus{
+    box-shadow: none;
+    background-color: transparent;
+    color:#6DD5FA;
+}
 
 /*New-Edit room template*/
 
 .newroom-container, .editroom-container{
+    margin: 1% auto 0 auto;
+    width: 400px;
+    height: 610px;
+    background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
+    padding: 10px;
+
+}
+
+.check-user-box{
     margin: 10% auto 0 auto;
     width: 400px;
     height: 300px;
-    background-color: #6897bb;
+    background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
     padding: 10px;
+
+}
+
+
+.newroom-container h1, .editroom-container h1, .check-user-box h1{
+    background: linear-gradient(#2980B9, #6DD5FA, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.upload-image .form-group{padding:0.5em;margin:1em}
+.upload-image input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
+.upload-image .label{margin: auto;width:80%; height:10%; border:2px dotted #6DD5FA;border-radius:5px;display:block;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center}
+.upload-image .label i{display:block;font-size:42px;padding-bottom:16px;padding-top: 20px}
+.upload-image .label span{font-size:1rem}
+.upload-image .label i,.upload-image .label .title{color:#6DD5FA;transition:200ms color}
+.upload-image .label:hover{border:2px solid #6DD5FA}
+
+
+.newroom-container .form-control, .editroom-container .form-control, .check-user-box .form-control{
+    height: 20px;
+    background-color: transparent;
+    border-bottom: 1px solid #6DD5FA;
+    border-radius: 0;
+    color:#6DD5FA;
+    transition: 200ms border;
+    border-top-style: inherit;
+    border-right-style: inherit;
+    border-left-style: inherit;
+    font-size: 1.5rem;
+}
+
+.newroom-container .form-control,.editroom-container .form-control:focus, .check-user-box .form-control:focus, chat-container .form-control:focus{
+    box-shadow: none;
+    background-color: transparent;
+    color:#6DD5FA;
+}
+
+.newroom-container label, .editroom-container label, .register-container label, .login-container label, .check-user-box label{
+    color:#6DD5FA
+}
+
+#text-description{
+    height: 60px;
+    resize: none;
 }
 
 
 /*Rooms template*/
+.card{
+    border-color: #FF0099;
+    background-color: rgba(242, 242, 242, 0.3);
+}
 
 .edit-delete-container{
     margin-top: 7px;
@@ -63,17 +150,166 @@
     display: inline;
 }
 
+i{
+    font-size: 4rem;
+}
+
+
 
 /*Chat template*/
+
+.container{
+    margin-top: 20px;
+}
 
 .messages-container{
     max-height: 500px;
     height: 500px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #m{
-    background-color: white;
-    border: 2px solid grey;
-    width: 93%;
+    background-color: transparent;
+    width: 90%;
+    color: #6DD5FA;
+}
+
+#sendButton{
+    width: 10%;
+}
+
+.btn-leave .btn-danger{
+    border-radius: 0 100% 0 0;
+    border: 1px solid #6DD5FA;
+}
+
+.btn-leave .btn-info{
+    border-radius: 100% 0 0 0;
+    border: 1px solid #6DD5FA;
+}
+
+.btn-leave .btn-info i{
+    margin: 10px 5px 0 12px;
+    font-size: 1.3rem;
+}
+
+.btn-leave .btn-danger i{
+    margin: 10px 5px 5px 0;
+    font-size: 1.3rem;
+}
+
+
+.chatrow{
+ border: 4px double #6DD5FA;
+}
+
+.chat-container{
+
+    background-color: rgba(242, 242, 242, 0.3);
+}
+
+.contacts-container{
+    border-right: 2px solid #6DD5FA;
+    background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
+}
+
+.contacts-container li{
+    border: 1px solid #6DD5FA;
+    background-color: transparent;
+    color: #6DD5FA;
+}
+
+.mymessage{
+    background: linear-gradient(to right, rgba(41, 128, 185, 1), rgba(109, 213, 250, 1), rgba(255, 255, 255, 0.4));
+    padding: 5px;
+    color: #0F2027;
+}
+.othermessage{
+    background: linear-gradient(to right, rgba(62, 81, 81, 1), rgba(222, 203, 164, 1));
+    padding: 5px;
+    color: #0F2027;
+}
+
+.connected-message{
+    background-color: transparent;
+    padding: 5px;
+    color: #6DD5FA;
+    border: none;
+}
+
+
+.message-avatar{
+    border-radius: 60%;
+    width: 40px;
+    height: 40px;
+}
+
+
+/*SCROLLBAR*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: gray;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6DD5FA;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/*Headers*/
+.avatar{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.navbar-brand {
+    font-family: 'Cyberpunk', Arial, sans-serif;
+    font-weight: bold;
+    font-style:normal;
+    font-size: 3rem;
+    background: linear-gradient(#f7ff00, #db36a4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dropdown-menu i{
+    font-size: 20px;
+}
+
+.dropdown-item{
+    color: #F2F2F2;
+}
+
+.dropdown-item:hover{
+    color: #FF0099;
+    background-color: rgba(242, 242, 242, 0.3);
+}
+
+/*Fonts*/
+@font-face {
+    font-family: "Cyberpunk";
+    src: url("../fonts/Cyberpunk.ttf");
+    src:
+            url("../fonts/Cyberpunk.ttf") format("woff"),
+            url("../fonts/Cyberpunk.ttf") format("opentype"),
+            url("../fonts/Cyberpunk.ttf#filename") format("svg");
+}
+@font-face {
+    font-family: "Sony_Sketch";
+    src: url("../fonts/Sony_Sketch_EF.ttf");
+    src:
+            url("../fonts/Sony_Sketch_EF.ttf") format("woff"),
+            url("../fonts/Sony_Sketch_EF.ttf") format("opentype"),
+            url("../fonts/Sony_Sketch_EF.ttf#filename") format("svg");
 }

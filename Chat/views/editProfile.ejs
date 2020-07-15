@@ -1,0 +1,30 @@
+<%- include("./partials/Auth-Room-New-Edit/header")%>
+
+<div class="container-fluid">
+    <div class="editroom-container text-center">
+        <div class="text-center"><h1>Edit <%= currentUser.username%> profile</h1></div>
+        <form action="/edit-profile/<%= profile._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+            <div class="upload-image">
+                <div class="form-group">
+                    <label for="avatar" class="label" style="background-image: url('<%= profile.avatar%>');background-size: cover;background-position: center;background-color: rgba(255,255,255,0.2)">
+                        <i class="far fa-file-image"></i>
+                        <span class="title">Change avatar</span>
+                        <input type="file" id="avatar" name="profileObj[avatar]" accept="image/*" required>
+                    </label>
+                </div>
+                <div id="firstname" class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input id="firstname" class="form-control" type="text" value="<%= profile.firstName%>" name="profileObj[firstName]" autocomplete="off">
+                </div>
+                <label for="lastname">Last Name</label>
+                <div class="form-group">
+                    <input id="lastname" class="form-control" type="text" value="<%= profile.lastName%>" name="profileObj[lastName]" autocomplete="off">
+                </div>
+                <button class="btn btn-outline-warning btn-lg">EDIT</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<%- include("./partials/Auth-Room-New-Edit/footer")%>

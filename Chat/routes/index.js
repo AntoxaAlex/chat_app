@@ -1,22 +1,76 @@
 var express = require("express"),
     router = express.Router({mergeParams: true}),
     passport = require("passport"),
-    User = require("../models/user");
+    User = require("../models/user"),
+    Profile = require("../models/profile"),
+    multer  = require('multer'),
+    path = require('path'),
+    storage = multer.diskStorage({
+        filename: (req, file, cb)=>{
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    }),
+    upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+        fileFilter: (req, file, cb)=>{
+        checkFileType(file, cb);
+    }
+    }),
+    cloudinary = require('cloudinary');
+
+    cloudinary.config({
+    cloud_name: 'antoxaalex',
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+    });
+
+function checkFileType(file, cb){
+    //Allowed ext
+    const fileTypes = /jpeg|jpg|png|gif/;
+    //Check ext
+    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    //Check mime
+    const mimeType = fileTypes.test(file.mimetype);
+    console.log(mimeType, extname)
+
+    if(mimeType && extname){
+        return cb(null, true)
+    } else{
+        cb(new Error("Only images"))
+
+    }
+}
+
 
 router.get("/register", function(req, res){
     res.render("register")
 })
 
-router.post("/register", function(req, res){
+router.post("/register", upload.single("avatar"), (req, res)=>{
     User.register({username: req.body.username}, req.body.password, function(err, user){
         if(err){
             console.log("Error: " + err.message);
             res.redirect('/register');
         }
+        cloudinary.uploader.upload(req.file.path, function(result) {
+            Profile.create({
+                _id: user._id,
+                firstName: req.body.firstname,
+                lastName: req.body.lastname,
+                userName: req.body.username,
+                avatar: result.secure_url
+            }, (err, profile) => {
+                if (err) {
+                    console.log("Error: " + err);
+                    res.redirect('/register');
+                }
+            })
+        })
         passport.authenticate("local")(req, res, function(){
-            console.log("A new user "+ req.body.username +" is successfuly registered")
-            req.flash("success", "You successfuly registered as:" + req.body.username);
-            res.redirect("/");
+            console.log("A new user "+ req.body.username +" is successfully registered")
+            req.flash("success", "You successfully registered as:" + req.body.username);
+            res.redirect("/login");
         })
     })
 })
@@ -30,7 +84,7 @@ router.post("/login", passport.authenticate("local",
         successRedirect: "/",
         successFlash: 'Welcome!',
         failureRedirect: "/login",
-        failureFlash: 'Somethong went wrong!',
+        failureFlash: 'Something went wrong!',
     }), function(req, res){
     // console.log("The user "+ req.user.username +" is successfully logged in");
 })

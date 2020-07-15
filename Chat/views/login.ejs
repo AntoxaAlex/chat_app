@@ -2,19 +2,18 @@
 
 <div class="container-fluid">
     <div class="login-container text-center">
-        <form action="/login" method="POST">
+        <form class="mb-3" action="/login" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input id="username" type="text" name="username" class="form-control">
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" class="form-control">
-                <button class="btn btn-outline-light btn-lg">LOG IN</button>
+                <input id="username" type="text" name="username" class="form-control" autocomplete="off">
             </div>
-            <a href="#">Forgot your password?</a>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" class="form-control" autocomplete="off">
+            </div>
+                <button class="btn btn-outline-light btn-lg">LOG IN</button>
         </form>
-    </div>
-    <div class="register-link text-center">
-        <span>Don't have an account?</span><a href="/register">Register</a>
+        <span>Don't have an account?</span><a href="/register"> Register here</a>
     </div>
 </div>
 

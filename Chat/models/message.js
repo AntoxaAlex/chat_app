@@ -5,9 +5,10 @@ var messageSchema = new mongoose.Schema({
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: "Profile"
         },
-        username: String
+        username: String,
+        avatar: String
     }
 })
 

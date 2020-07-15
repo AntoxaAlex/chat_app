@@ -2,15 +2,31 @@
 
 <div class="container-fluid">
     <div class="newroom-container text-center">
-        <h1>Create New Room</h1>
-        <form action="/new-room" method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" name="room[title]" placeholder="title">
-                <input type="text" class="form-control" name="room[description]" placeholder="description">
-                <button class="btn btn-outline-light btn-lg">CREATE</button>
+        <h1>Room Creation</h1>
+        <form action="/new-room" method="POST" enctype="multipart/form-data">
+            <div class="upload-image">
+                <div class="form-group">
+                    <label for="image" class="label">
+                        <i class="far fa-file-image"></i>
+                        <span class="title">Add image</span>
+                        <input type="file" id="image" name="room[image]" accept="image/*" required>
+                    </label>
+                </div>
             </div>
+            <div class="form-group">
+                <label for="title" class="label">Title</label>
+                <input id="title" type="text" class="form-control" name="room[title]" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="description" class="label">Description</label>
+                <input id="description" type="text" class="form-control" name="room[description]" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password" class="label">Password</label>
+                <input id="password" type="password" class="form-control" name="room[password]" autocomplete="off">
+            </div>
+            <button class="btn btn-outline-light btn-lg">CREATE</button>
         </form>
-        <a href="/rooms">Back</a>
     </div>
 </div>
 

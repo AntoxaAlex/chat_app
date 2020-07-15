@@ -1,5 +1,6 @@
 var Room = require("../models/room"),
-    Message = require("../models/message")
+    Message = require("../models/message"),
+    Contact = require("../models/profile");
 
 var middlewareObj = {};
 
@@ -12,6 +13,19 @@ middlewareObj.isLoggedIn = function(req, res, next){
     res.redirect("/login")
 
 }
+
+// middlewareObj.isNameExist = function(req, res, next){
+//     Contact.find({name: req.user.username}, function (err, docs) {
+//         if (docs.length){
+//             console.log('Name exists already');
+//             res.redirect("/rooms")
+//         }else{
+//             next();
+//         }
+//     });
+//
+// }
+
 
 middlewareObj.checkRoomOwnership = function(req, res, next){
     if(req.isAuthenticated()){

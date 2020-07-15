@@ -1,0 +1,16 @@
+<%- include("./partials/Auth-Room-New-Edit/header")%>
+
+<div class="container-fluid">
+    <div class="check-user-box text-center">
+            <h1>JOIN THIS CHAT</h1>
+            <form action="/rooms/<%=room._id%>/join-room" method="POST">
+                <div class="form-group">
+                    <label for="room-password">Password</label>
+                    <input id="room-password" type="password" class="form-control" name="room[password]" autocomplete="off">
+                </div>
+                <button class="btn btn-outline-light btn-lg">JOIN CHAT</button>
+            </form>
+    </div>
+</div>
+
+<%- include("./partials/Auth-Room-New-Edit/footer")%>zz
