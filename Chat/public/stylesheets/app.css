@@ -1,7 +1,8 @@
 /*Login template*/
 body{
     background-image: url("../imgs/background.jpg");
-    background-size: cover;
+  	 background-size: cover;
+	background-repeat: no-repeat;
     font-family: Sony_Sketch;
     font-weight: normal;
     font-style:normal;
@@ -11,18 +12,16 @@ body{
 .login-container {
     margin: 10% auto 0 auto;
     width: 400px;
-    height: 300px;
-    background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
+    height: 350px;
+ background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
     padding: 10px;
 }
 
 .login-container input{
-    height: 20px;
     background-color: transparent;
     border-bottom: 1px solid #6DD5FA;
     border-radius: 0;
-    color:#6DD5FA;
-    transition: 200ms border;
+    color:#6DD5FA;    
     border-top-style: inherit;
     border-right-style: inherit;
     border-left-style: inherit;
@@ -46,13 +45,12 @@ body{
 .register-container {
     margin: 5% auto 0 auto;
     width: 400px;
-    height: 620px;
+    height: 760px;
     background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
     padding: 10px;
 }
 
 .register-container input{
-    height: 20px;
     background-color: transparent;
     border-bottom: 1px solid #6DD5FA;
     border-radius: 0;
@@ -74,7 +72,7 @@ body{
 .newroom-container, .editroom-container{
     margin: 1% auto 0 auto;
     width: 400px;
-    height: 610px;
+    height: 700px;
     background: linear-gradient(rgba(255, 0, 204, 0.3), rgba(51, 51, 153, 0.3));
     padding: 10px;
 
@@ -106,7 +104,6 @@ body{
 
 
 .newroom-container .form-control, .editroom-container .form-control, .check-user-box .form-control{
-    height: 20px;
     background-color: transparent;
     border-bottom: 1px solid #6DD5FA;
     border-radius: 0;
@@ -269,15 +266,15 @@ i{
 /*Headers*/
 .avatar{
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .navbar-brand {
     font-family: 'Cyberpunk', Arial, sans-serif;
     font-weight: bold;
     font-style:normal;
-    font-size: 3rem;
+    font-size: 2rem;
     background: linear-gradient(#f7ff00, #db36a4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

@@ -182,7 +182,6 @@ router.post("/rooms/:id/message/new", middleware.isLoggedIn, (req, res)=>{
                             console.log(err.message)
                         }else {
                             if(req.xhr){
-                                console.log("kldjfalksf: "+foundProfile)
                                 res.json(message)
                                 message.author.id = req.user._id;
                                 message.author.username = req.user.username;

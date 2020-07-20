@@ -150,7 +150,6 @@ io.on("connection", (socket)=>{
     socket.on('newUser', (name)=>{
 
         users[socket.id] = name;
-        console.log(name)
         socket.broadcast.emit('user-connected', name);
         io.emit('user-online', name)
         socket.emit('scroll');
@@ -158,8 +157,8 @@ io.on("connection", (socket)=>{
 
 
 
-    socket.on('chat message', (data) => {
-        io.emit('chat message', {message: data.msg, useravatar:data.avatar, name:users[socket.id]});
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', {message: msg, name:users[socket.id]});
     });
 
     socket.on('typing', (name)=>{
@@ -180,6 +179,5 @@ io.on("connection", (socket)=>{
 
 
 http.listen(port,()=>{
-    console.log(process.env.PORT)
     console.log("Server is running")
 })

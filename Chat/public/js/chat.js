@@ -16,13 +16,15 @@ $('form').submit(function(e) {
     e.preventDefault(); // prevents page reloading
     var formData = $(this).serialize();
     var formAction = $(this).attr('action');
-    $.post(formAction, formData, (data)=>{
+	var msg = $('#m').val();
+	if(msg !== ""){
+		$.post(formAction, formData, (data)=>{
         console.log(data)
     })
-    var msg = $('#m').val();
-    socket.emit('chat message', {msg:msg, avatar:avatar});
+    socket.emit('chat message', msg);
     $('#m').val('');
-    return false;
+    return false;	
+	}
 });
 
 $('form').keyup((e)=>{
@@ -57,10 +59,10 @@ socket.on("scroll",()=>{
 socket.on('chat message', function(data){
     if(data.name != name){
         $('.isTyping').remove()
-        $('#messages').append($('<li class="list-group-item mb-3 align-self-end list-group-item othermessage m-3"></li>').text(data.name + " : " + data.message));
+        $('#messages').append($('<li class="list-group-item mb-3 align-self-end list-group-item othermessage m-3">').text(data.name + " : " + data.message));
     }else{
         $('.isTyping').remove()
-        $('#messages').append($('<li class="list-group-item mb-3 align-self-start list-group-item mymessage m-3"></li>').text(data.name + " : " + data.message));
+        $('#messages').append($('<li class="list-group-item mb-3 align-self-start list-group-item mymessage m-3">').text(data.name + " : " + data.message));
     }
     $('.messages-container').animate({scrollTop: 9999});
 });
