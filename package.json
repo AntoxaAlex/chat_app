@@ -27,6 +27,7 @@
     "passport-local-mongoose": "^6.0.1",
     "path": "^0.12.7",
     "request": "^2.88.2",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "standart": "^6.1.0"
   }
 }

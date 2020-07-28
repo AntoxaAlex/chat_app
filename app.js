@@ -1,183 +1,92 @@
-const express = require("express");
-const app = express();
-const http = require('http').createServer(app);
-const io = require("socket.io")(http);
+const express = require('express')
+const app = express()
+const http = require('http').createServer(app)
+const io = require('socket.io')(http)
 
-require('dotenv').config();
+require('dotenv').config()
 
-var mongoose = require("mongoose"),
-    bodyParser = require("body-parser"),
-    methodOverride = require("method-override"),
-    passport = require("passport"),
-    LocalStrategy = require("passport-local"),
-    session = require("express-session"),
-    flash = require("connect-flash"),
-    multer  = require('multer'),
-    path = require('path');
+var mongoose = require('mongoose')
+var bodyParser = require('body-parser')
+var methodOverride = require('method-override')
+var passport = require('passport')
+var LocalStrategy = require('passport-local')
+var session = require('express-session')
+var flash = require('connect-flash')
 
-let port = process.env.PORT,
-    key = process.env.CLOUDINARY_API_KEY,
-    secret = process.env.CLOUDINARY_API_SECRET;
+var User = require('./models/user')
 
-const storage = multer.diskStorage({
-    filename: (req, file, cb)=>{
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-    upload = multer({
-        storage: storage,
-        limits:{fileSize: 1000000},
-        fileFilter: (req, file, cb)=>{
-            checkFileType(file, cb);
-        }
-    }).single('avatar')
+var authRoutes = require('./routes/index')
+var roomRoutes = require('./routes/rooms')
 
-var cloudinary = require('cloudinary');
-cloudinary.config({
-    cloud_name: 'antoxaalex',
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
+let port = process.env.PORT
 
-
-
-var User = require("./models/user"),
-    Room = require("./models/room"),
-    Message = require("./models/message"),
-    Profile = require("./models/profile")
-
-var authRoutes = require("./routes/index"),
-    roomRoutes = require("./routes/rooms")
-
-
-mongoose.connect("mongodb://localhost/chat", {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true})
-    .then(() => console.log("DB is successfully connected"))
-    .catch(err =>{
-        console.log("DB did not connected: " + err.message)
+mongoose.connect('mongodb+srv://dbUser:anton1995@cluster0-fnigp.mongodb.net/chat?retryWrites=true&w=majority', {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true})
+    .then(() => console.log('DB is successfully connected'))
+    .catch(err => {
+        console.log('DB did not connected: ' + err.message)
     })
 
 // set the template engine ejs
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs')
 
 // middleware
-app.use(express.static("public"));
-app.use(methodOverride("_method"));
+app.use(express.static('public'))
+app.use(methodOverride('_method'))
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(flash());
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(flash())
 
-//auth
+// auth
 app.use(session({
     secret: 'kuma zloy pes',
     resave: false,
     saveUninitialized: false
 }))
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
-
-app.use(function(req, res, next){
-    res.locals.currentUser = req.user;
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
-    next();
-});
-
-app.use(authRoutes);
-app.use(roomRoutes);
-
-//Check File Type
-
-function checkFileType(file, cb){
-    //Allowed ext
-    const fileTypes = /jpeg|jpg|png|gif/;
-    //Check ext
-    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
-    //Check mime
-    const mimeType = fileTypes.test(file.mimetype);
-    console.log(mimeType, extname)
-
-    if(mimeType && extname){
-        return cb(null, true)
-    } else{
-        cb(new Error("Only images"))
-
-    }
-}
-
-
-
-
-//Routes
-
-app.post('/upload', (req, res)=>{
-    upload(req, res, (err)=>{
-        if(err){
-            req.flash("error", "Something wrong")
-            console.log(err);
-            res.redirect("/rooms")
-        } else {
-            if(req.file == undefined){
-                req.flash("error", "No file was selected")
-                res.redirect("/rooms")
-            }else {
-
-                        Profile.findById(req.user._id, (err, foundProfile)=>{
-                            if(err){
-                                console.log(err.message)
-                            }else{
-                                foundProfile.avatar = "/uploads/"+req.file.filename;
-                                console.log(foundProfile.avatar)
-                                res.render("rooms", {profile: foundProfile})
-                            }
-                        })
-
-
-
-            }
-        }
-    })
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user
+    res.locals.error = req.flash('error')
+    res.locals.success = req.flash('success')
+    next()
 })
 
+// Routes
+app.use(authRoutes)
+app.use(roomRoutes)
 
-const users = {};
 
-io.on("connection", (socket)=>{
+// Server socker
+const users = {}
 
-    socket.on('newUser', (name)=>{
-
-        users[socket.id] = name;
-        socket.broadcast.emit('user-connected', name);
+io.on('connection', (socket) => {
+    socket.on('newUser', (name) => {
+        users[socket.id] = name
+        socket.broadcast.emit('user-connected', name)
         io.emit('user-online', name)
-        socket.emit('scroll');
+        socket.emit('scroll')
     })
 
-
-
     socket.on('chat message', (msg) => {
-        io.emit('chat message', {message: msg, name:users[socket.id]});
-    });
+        io.emit('chat message', {message: msg, name:users[socket.id]})
+    })
 
-    socket.on('typing', (name)=>{
-        socket.broadcast.emit("user-typing", name)
+    socket.on('typing', (name) => {
+        socket.broadcast.emit('user-typing', name)
     })
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
-        socket.broadcast.emit();
-    });
+        console.log('user disconnected')
+        socket.broadcast.emit()
+    })
 })
 
 
-
-
-
-
-
-
-http.listen(port,()=>{
-    console.log("Server is running")
+// Listen port
+http.listen(port, () => {
+    console.log('Server is running')
 })

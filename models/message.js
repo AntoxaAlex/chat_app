@@ -1,15 +1,15 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose')
 
 var messageSchema = new mongoose.Schema({
     text: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Profile"
+            ref: 'Profile'
         },
         username: String,
         avatar: String
     }
 })
 
-module.exports = mongoose.model("Message", messageSchema);
+module.exports = mongoose.model('Message', messageSchema)
