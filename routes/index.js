@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router({mergeParams: true})
 var passport = require('passport')
+var middleware = require('../middleware/index')
 var User = require('../models/user')
 var Profile = require('../models/profile')
 var multer  = require('multer')
@@ -45,10 +46,19 @@ function checkFileType(file, cb) {
     }
 }
 
+
+router.get('/', middleware.isLoggedIn, function(req, res) {
+  res.redirect('/rooms')
+})
+
+
+// Display page with register form
 router.get('/register', function(req, res) {
     res.render('register')
 })
 
+
+// Register a new user and create user's profile
 router.post('/register', upload.single('avatar'), (req, res) => {
     User.register({username: req.body.username}, req.body.password, function(err, user) {
         if (err) {
@@ -77,10 +87,14 @@ router.post('/register', upload.single('avatar'), (req, res) => {
     })
 })
 
+
+// Display page with login form
 router.get('/login', function(req, res) {
     res.render('login')
 })
 
+
+// Login user
 router.post('/login', passport.authenticate('local',
     {
         successRedirect: '/',
@@ -91,11 +105,43 @@ router.post('/login', passport.authenticate('local',
     // console.log("The user "+ req.user.username +" is successfully logged in");
 })
 
+
+// Logout user
 router.get('/logout', function(req, res) {
     req.logout()
     req.flash('success', 'Logged you out')
     res.redirect('/login')
     console.log('The user ' + req.body.username + ' is successfuly loged out')
+})
+
+
+// Display ejs template with form to edit profile
+router.get('/profile/:id/edit', middleware.isLoggedIn, (req, res) => {
+  Profile.findById(req.params.id, (err, foundProfile) => {
+    if (err) {
+      console.log(err.message)
+      } else {
+        res.render('editProfile', {profile: foundProfile})
+      }
+  })
+})
+
+
+// Edit profile
+router.put('/profile/:id', middleware.isLoggedIn,  upload.single('profileObj[avatar]'), (req, res) => {
+    cloudinary.uploader.upload(req.file.path, function(result) {
+        var firstName = req.body.profileObj.firstName
+        var lastName = req.body.profileObj.lastName
+        var avatar = result.secure_url
+        Profile.findByIdAndUpdate(req.params.id, {firstName: firstName, lastName: lastName, avatar: avatar}, function(err) {
+            if (err) {
+                console.log(err)
+            } else {
+                req.flash('success', 'User was updated')
+                res.redirect('/rooms')
+            }
+        })
+    })
 })
 
 module.exports = router

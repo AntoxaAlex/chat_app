@@ -46,11 +46,10 @@ function checkFileType(file, cb) {
     }
 }
 
-router.get('/', middleware.isLoggedIn, function(req, res) {
-  res.redirect('/rooms')
-})
 
-router.get('/rooms', middleware.isLoggedIn, (req, res) => {
+
+// Display list of all rooms
+router.get('/', middleware.isLoggedIn, (req, res) => {
   Room.find({}, (err, foundRooms) => {
     if (err) {
       console.log(err.message)
@@ -66,7 +65,9 @@ router.get('/rooms', middleware.isLoggedIn, (req, res) => {
   })
 })
 
-router.get('/new-room', middleware.isLoggedIn, (req, res) => {
+
+// Display page with form to create a new room
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   Profile.findById(req.user._id, (err, foundProfile) => {
     if (err) {
       console.log(err.message)
@@ -76,7 +77,9 @@ router.get('/new-room', middleware.isLoggedIn, (req, res) => {
   })
 })
 
-router.post('/new-room', middleware.isLoggedIn, upload.single('room[image]'), (req, res) => {
+
+// Create new room
+router.post('/', middleware.isLoggedIn, upload.single('room[image]'), (req, res) => {
     cloudinary.uploader.upload(req.file.path, function(result) {
         var title = req.body.room.title
         var image = result.secure_url
@@ -97,7 +100,9 @@ router.post('/new-room', middleware.isLoggedIn, upload.single('room[image]'), (r
     })
 })
 
-router.get('/rooms/:id/checkuser', middleware.isLoggedIn, (req, res) => {
+
+// Display page with form to check user
+router.get('/:id/checkuser', middleware.isLoggedIn, (req, res) => {
   Room.findById(req.params.id, (err, foundRoom) => {
     if (err) {
       console.log(err.message)
@@ -113,7 +118,9 @@ router.get('/rooms/:id/checkuser', middleware.isLoggedIn, (req, res) => {
   })
 })
 
-router.post('/rooms/:id/join-room',  middleware.isLoggedIn, (req, res) => {
+
+// Check user
+router.post('/:id/join-room',  middleware.isLoggedIn, (req, res) => {
   var password = req.body.room.password
     Room.findById(req.params.id).populate('messages').exec(function(err, foundRoom) {
       if (err) {
@@ -140,7 +147,8 @@ router.post('/rooms/:id/join-room',  middleware.isLoggedIn, (req, res) => {
     })
 })
 
-router.get('/rooms/:id/edit-room', middleware.isLoggedIn, (req, res) => {
+// Display page with form to edit the room
+router.get('/:id/edit', middleware.isLoggedIn, (req, res) => {
   if (req.isAuthenticated()) {
     Room.findById(req.params.id, function(err, foundRoom) {
       if (err) {
@@ -158,7 +166,9 @@ router.get('/rooms/:id/edit-room', middleware.isLoggedIn, (req, res) => {
   }
 })
 
-router.put('/rooms/:id', middleware.checkRoomOwnership, upload.single('room[image]'), function(req, res) {
+
+// Edit room
+router.put('/:id', middleware.checkRoomOwnership, upload.single('room[image]'), function(req, res) {
     cloudinary.uploader.upload(req.file.path, function(result) {
         var title = req.body.room.title
         var description = req.body.room.description
@@ -174,7 +184,9 @@ router.put('/rooms/:id', middleware.checkRoomOwnership, upload.single('room[imag
     })
 })
 
-router.delete('/rooms/:id/delete-room', middleware.checkRoomOwnership, (req, res) => {
+
+// Delete room
+router.delete('/:id', middleware.checkRoomOwnership, (req, res) => {
     Room.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
             console.log('We have an error: ' + err.message)
@@ -185,7 +197,8 @@ router.delete('/rooms/:id/delete-room', middleware.checkRoomOwnership, (req, res
     })
 })
 
-router.post('/rooms/:id/message/new', middleware.isLoggedIn, (req, res) => {
+// Create message
+router.post('/:id/message/new', middleware.isLoggedIn, (req, res) => {
     var text = req.body.message.text
     var author = {
         id: req.user._id,
@@ -222,48 +235,6 @@ router.post('/rooms/:id/message/new', middleware.isLoggedIn, (req, res) => {
                 }
             })
         }
-    })
-})
-
-router.get('/edit-profile/:id', middleware.isLoggedIn, (req, res) => {
-  Profile.findById(req.params.id, (err, foundProfile) => {
-    if (err) {
-      console.log(err.message)
-      } else {
-        res.render('editProfile', {profile: foundProfile})
-      }
-  })
-})
-
-router.put('/rooms/:id', middleware.checkRoomOwnership, upload.single('room[image]'), function(req, res) {
-    cloudinary.uploader.upload(req.file.path, function(result) {
-        var title = req.body.room.title
-        var description = req.body.room.description
-        var image = result.secure_url
-        Room.findByIdAndUpdate(req.params.id, {title: title, image:image, description: description}, function(err) {
-            if (err) {
-                console.log(err)
-            } else {
-                req.flash('success', 'Campground was updated')
-                res.redirect('/rooms')
-            }
-        })
-    })
-})
-
-router.put('/edit-profile/:id', middleware.isLoggedIn,  upload.single('profileObj[avatar]'), (req, res) => {
-    cloudinary.uploader.upload(req.file.path, function(result) {
-        var firstName = req.body.profileObj.firstName
-        var lastName = req.body.profileObj.lastName
-        var avatar = result.secure_url
-        Profile.findByIdAndUpdate(req.params.id, {firstName: firstName, lastName: lastName, avatar: avatar}, function(err) {
-            if (err) {
-                console.log(err)
-            } else {
-                req.flash('success', 'User was updated')
-                res.redirect('/rooms')
-            }
-        })
     })
 })
 

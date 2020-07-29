@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="editroom-container text-center">
         <div class="text-center"><h1>Edit <%= currentUser.username%> profile</h1></div>
-        <form action="/edit-profile/<%= profile._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <form action="/profile/<%= profile._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
             <div class="upload-image">
                 <div class="form-group">
                     <label for="avatar" class="label" style="background-image: url('<%= profile.avatar%>');background-size: cover;background-position: center;background-color: rgba(255,255,255,0.2)">

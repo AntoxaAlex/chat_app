@@ -12,15 +12,15 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local')
 var session = require('express-session')
 var flash = require('connect-flash')
-
 var User = require('./models/user')
 
-var authRoutes = require('./routes/index')
+var indexRoutes = require('./routes/index')
 var roomRoutes = require('./routes/rooms')
 
 let port = process.env.PORT
+let dburl = process.env.DATABASEURL
 
-mongoose.connect('mongodb+srv://dbUser:anton1995@cluster0-fnigp.mongodb.net/chat?retryWrites=true&w=majority', {useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true})
+mongoose.connect(dburl ,{useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true})
     .then(() => console.log('DB is successfully connected'))
     .catch(err => {
         console.log('DB did not connected: ' + err.message)
@@ -56,11 +56,12 @@ app.use(function(req, res, next) {
 })
 
 // Routes
-app.use(authRoutes)
-app.use(roomRoutes)
+app.use("/", indexRoutes)
+app.use("/rooms", roomRoutes)
 
 
-// Server socker
+// Server socket
+
 const users = {}
 
 io.on('connection', (socket) => {
@@ -84,7 +85,6 @@ io.on('connection', (socket) => {
         socket.broadcast.emit()
     })
 })
-
 
 // Listen port
 http.listen(port, () => {

@@ -12,8 +12,8 @@
                     <a href="/rooms/<%=room._id%>/checkuser" class="btn btn-lg btn-outline-info">See chat</a>
                     <% if(currentUser&&room.author.id.equals(currentUser._id)){ %>
                     <div class="edit-delete-container">
-                        <a href="/rooms/<%=room._id%>/edit-room" class="btn btn-outline-warning btn-sm">Edit chat</a>
-                        <form class="deleteForm" action="/rooms/<%=room._id%>/delete-room?_method=DELETE" method="POST" >
+                        <a href="/rooms/<%=room._id%>/edit" class="btn btn-outline-warning btn-sm">Edit chat</a>
+                        <form class="deleteForm" action="/rooms/<%=room._id%>?_method=DELETE" method="POST" >
                             <button class="btn btn-outline-danger btn-sm">Delete</button>
                         </form>
                     </div>
@@ -24,7 +24,7 @@
             <% }) %>
         <div class="col-12 col-sm-6 col-lg-3">
             <div id="newRoomCard" class="card text-center bg-transparent p-5 text-white">
-                <a class="text-white" href="/new-room"><i class="fas fa-plus"></i></a>
+                <a class="text-white" href="/rooms/new"><i class="fas fa-plus"></i></a>
                 <h5 class="card-title">Create New Room</h5>
             </div>
         </div>
