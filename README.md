@@ -1,6 +1,5 @@
 # CyberChatApp
 
-##About
 Cyber Chat is a simple web chat using bidirectional communication.
 
 ### Built with:
