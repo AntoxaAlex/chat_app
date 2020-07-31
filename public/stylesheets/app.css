@@ -3,6 +3,7 @@ body{
     background-image: url("../imgs/background.jpg");
   	 background-size: cover;
 	background-repeat: no-repeat;
+	background-position: 50% 20%;
     font-family: Sony_Sketch;
     font-weight: normal;
     font-style:normal;
@@ -147,10 +148,15 @@ body{
     display: inline;
 }
 
-i{
-    font-size: 4rem;
+
+
+.row .col-12{
+	margin-bottom: 40px;
 }
 
+#newRoomDiv a{
+	margin: 0 40%
+}
 
 
 /*Chat template*/

@@ -1,9 +1,12 @@
 <%- include("./partials/Auth-Room-New-Edit/header")%>
 
-<div class="container">
+<div class="container-fluid">
+	<div id="newRoomDiv">
+		<a class="text-white btn btn-outline-success btn-lg" href="/rooms/new">CREATE NEW ROOM</a>
+	</div>
     <div class="row m-5">
         <% rooms.forEach(function(room){ %>
-        <div class="col-12 col-sm-6 col-lg-3">
+        <div class="col-12 col-lg-3">
             <div class="card text-center p-3">
                         <img src="<%=room.image%>" class="card-img-top" alt="...">
                 <div class="card-body text-white">
@@ -12,9 +15,9 @@
                     <a href="/rooms/<%=room._id%>/checkuser" class="btn btn-lg btn-outline-info">See chat</a>
                     <% if(currentUser&&room.author.id.equals(currentUser._id)){ %>
                     <div class="edit-delete-container">
-                        <a href="/rooms/<%=room._id%>/edit" class="btn btn-outline-warning btn-sm">Edit chat</a>
+                        <a href="/rooms/<%=room._id%>/edit" class="btn btn-outline-warning btn-lg">Edit chat</a>
                         <form class="deleteForm" action="/rooms/<%=room._id%>?_method=DELETE" method="POST" >
-                            <button class="btn btn-outline-danger btn-sm">Delete</button>
+                            <button class="btn btn-outline-danger btn-lg">Delete</button>
                         </form>
                     </div>
                     <%}%>
@@ -22,12 +25,6 @@
             </div>
         </div>
             <% }) %>
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div id="newRoomCard" class="card text-center bg-transparent p-5 text-white">
-                <a class="text-white" href="/rooms/new"><i class="fas fa-plus"></i></a>
-                <h5 class="card-title">Create New Room</h5>
-            </div>
-        </div>
     </div>
 
 </div>
