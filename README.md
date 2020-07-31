@@ -3,7 +3,9 @@
 Cyber Chat is a simple web chat using bidirectional communication.
 
 ### Built with:
+
 -**Serever side:** Node.js, Express.js, Passport.js, Socket.io, AJAX;
+
 -**Client side:** HTML, CSS, Bootstrap, JS
 
 
@@ -19,4 +21,5 @@ npm install
 ```
 
 **Try to use:**
+
 You can test this app [following this link](https://cyberchat95.herokuapp.com)
