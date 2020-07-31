@@ -7,16 +7,16 @@ Cyber Chat is a simple web chat using bidirectional communication.
 -**Client side:** HTML, CSS, Bootstrap, JS
 
 
-##Installation
-###Get the code
+## Installation
+**Get the code**
 ```
 git clone https://github.com/AntoxaAlex/chat_app.git
 ```
 
-###Fetch dependencies:
+**Fetch dependencies:**
 ```
 npm install
 ```
 
-##Try to use:
+**Try to use:**
 You can test this app [following this link](https://cyberchat95.herokuapp.com)
