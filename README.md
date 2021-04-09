@@ -23,11 +23,11 @@ npm install
 npm run start
 ```
 ## Configuration
-**Create your own MongoDB database*
+**Create your own MongoDB database**
 
-**Create cloudinary account*
+**Create cloudinary account**
 
-**Create .env file with such content*
+**Create .env file with such content**
 ```
 PORT = 3000
 DATABASEURL = database url from MongoDB
