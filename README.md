@@ -8,7 +8,6 @@ Cyber Chat is a simple web chat using bidirectional communication.
 
 -**Client side:** HTML, CSS, Bootstrap, JS
 
-
 ## Installation
 **Get the code**
 ```
@@ -23,6 +22,8 @@ npm install
 ```
 npm run start
 ```
+## Configuration
+**Create your own MongoDB database*
 
 **Try to use:**
 
