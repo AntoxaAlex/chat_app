@@ -1,6 +1,6 @@
 # CyberChatApp
 
-Cyber Chat is a simple web chat using bidirectional communication.
+Cyber Chat is a simple web chat using bidirectional communication(Socket.io). Server logic is built with help of Node.js and its framework Express.
 
 ### Built with:
 
