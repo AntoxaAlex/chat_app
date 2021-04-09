@@ -19,6 +19,10 @@ git clone https://github.com/AntoxaAlex/chat_app.git
 ```
 npm install
 ```
+**Run application:**
+```
+npm run start
+```
 
 **Try to use:**
 
